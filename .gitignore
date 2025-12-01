@@ -1,0 +1,32 @@
+# Laravel
+/node_modules
+/public/build
+/public/hot
+/public/storage
+/storage/*.key
+/vendor
+.env
+.env.backup
+.env.production  # On garde ça en local seulement
+.phpunit.result.cache
+Homestead.json
+Homestead.yaml
+auth.json
+npm-debug.log
+yarn-error.log
+/.fleet
+/.idea
+/.vscode
+
+# Ne PAS ignorer build.sh !
+# build.sh
+
+# Databases
+*.sqlite
+*.sqlite-journal
+database/*.sqlite
+database/*.sqlite-journal
+
+# OS
+.DS_Store
+Thumbs.db
