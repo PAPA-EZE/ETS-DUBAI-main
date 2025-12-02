@@ -14,8 +14,12 @@ class RecaptchaRule implements ValidationRule
    */
   public function validate(string $attribute, mixed $value, Closure $fail): void
   {
-    // Si reCAPTCHA est désactivé, passer la validation
-    if (!config('services.recaptcha.enabled', true)) {
+    // Si reCAPTCHA est désactivé ou mal configuré, passer la validation
+    if (
+      !config('services.recaptcha.enabled', true) ||
+      !config('services.recaptcha.site_key') ||
+      !config('services.recaptcha.secret_key')
+    ) {
       return;
     }
 
