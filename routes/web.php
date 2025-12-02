@@ -25,7 +25,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     // dd('la vie de djonie');
-    return redirect()->route('password.request');
+    return redirect()->route('login');
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {
