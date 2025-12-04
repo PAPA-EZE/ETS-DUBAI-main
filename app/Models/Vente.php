@@ -216,6 +216,8 @@ class Vente extends Model
 
         DB::beginTransaction();
         try {
+
+            // dd($this->lignes);
             // Mettre à jour les stocks
             foreach ($this->lignes as $ligne) {
                 if (!StockProduit::retirerStock(

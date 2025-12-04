@@ -163,6 +163,8 @@ class TransfertStock extends Model
 
         \DB::beginTransaction();
 
+        // dd($this->lignes);
+
         try {
             foreach ($this->lignes as $ligne) {
                 // Retirer du stock source

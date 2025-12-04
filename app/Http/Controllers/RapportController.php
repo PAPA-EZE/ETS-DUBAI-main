@@ -129,7 +129,7 @@ class RapportController extends Controller
     {
         $user = Auth::user();
         $isAdminOrResponsable = $user->canManageProduits();
-
+        // dd($user);
         if ($isAdminOrResponsable) {
             // ADMIN/RESPONSABLE : Vue globale avec details par point
             $produits = Produit::with(['categorie', 'fournisseur', 'stocks.pointVente'])
@@ -173,7 +173,7 @@ class RapportController extends Controller
         } else {
             // VENDEUR : Seulement son point de vente
             $pointVenteId = $user->point_vente_id;
-
+            // dd($pointVenteId);
             $produits = Produit::with(['categorie', 'fournisseur'])
                 ->actif()
                 ->orderBy('nom')

@@ -227,6 +227,7 @@ class TransfertStockController extends Controller
    */
   public function expedier(TransfertStock $transfert): RedirectResponse
   {
+    // dd($transfert);
     if (!auth()->user()->isAdmin() && !auth()->user()->isResponsable()) {
       return back()->with('error', 'Seuls les administrateurs et responsables peuvent expédier les transferts.');
     }

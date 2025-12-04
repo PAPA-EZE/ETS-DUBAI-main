@@ -73,8 +73,9 @@ class StockProduit extends Model
     public static function retirerStock(int $produitId, int $pointVenteId, int $quantite): bool
     {
         $stock = static::where('produit_id', $produitId)
-            ->where('point_vente_id', $pointVenteId)
-            ->first();
+        ->where('point_vente_id', $pointVenteId)
+        ->first();
+        // dd($stock);
 
         if (!$stock || $stock->quantite < $quantite) {
             return false; // Stock insuffisant

@@ -180,6 +180,8 @@
                   <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase">Paiement</th>
                 </tr>
               </thead>
+
+              {{-- @dd($ventesRecentes) --}}
               <tbody class="bg-white divide-y divide-gray-200">
                 @forelse($ventesRecentes as $vente)
                   <tr class="hover:bg-gray-50">
@@ -196,10 +198,10 @@
                       {{ $vente->date_vente->format('H:i') }}
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium text-gray-900">
-                      {{ number_format($vente->montant_final, 0, ',', ' ') }}
+                      {{ number_format($vente->montant_paye, 0, ',', ' ') }}
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap text-center">
-                      <x-status-badge :status="$vente->type_paiement_libelle" :type="$vente->type_paiement_badge" />
+                      <x-status-badge :status="$vente->statut" :type="$vente->type_paiement" />
                     </td>
                   </tr>
                 @empty

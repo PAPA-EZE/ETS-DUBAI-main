@@ -25,13 +25,13 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request): RedirectResponse
     {
-        // ✅ VALIDER LE RECAPTCHA
-        $request->validate([
-            'g-recaptcha-response' => ['required', new RecaptchaRule()],
-        ], [
-            'g-recaptcha-response.required' => 'Veuillez valider le reCAPTCHA.',
-        ]);
-
+        // // ✅ VALIDER LE RECAPTCHA
+        // $request->validate([
+        //     'g-recaptcha-response' => ['required', new RecaptchaRule()],
+        // ], [
+        //     'g-recaptcha-response.required' => 'Veuillez valider le reCAPTCHA.',
+        // ]);
+        // dd($request);
         $request->authenticate();
 
         // ✅ VÉRIFIER SI L'UTILISATEUR EST ACTIF

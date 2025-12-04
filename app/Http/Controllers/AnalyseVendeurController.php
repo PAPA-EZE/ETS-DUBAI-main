@@ -28,6 +28,7 @@ class AnalyseVendeurController extends Controller
         $pointId = $request->get('point_id');
 
         $dateDebut = now()->subDays((int)$periode);
+        // dd($dateDebut);
 
         // Statistiques globales
         $stats = [
@@ -41,6 +42,8 @@ class AnalyseVendeurController extends Controller
                 ->distinct('user_id')
                 ->count('user_id'),
         ];
+
+        // dd($stats);
 
         // Anomalies récentes
         $anomaliesRecentes = ActivityLog::with(['user', 'pointVente'])

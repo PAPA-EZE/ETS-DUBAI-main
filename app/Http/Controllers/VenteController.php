@@ -132,6 +132,7 @@ class VenteController extends Controller
                 ];
             })
             ->values();
+            // dd($produits);
 
         $clients = Client::actif()->orderBy('nom')->get();
 
@@ -263,7 +264,7 @@ class VenteController extends Controller
             if ($request->expectsJson()) {
                 return response()->json([
                     'success' => true,
-                    'message' => "Vente {$vente->numero_vente} crÃ©Ã©e en brouillon. Validez-la pour mettre Ã  jour les stocks.",
+                    'message' => "Vente {$vente->numero_vente} créer en brouillon. Validez-la pour mettre à jour les stocks.",
                     'vente_id' => $vente->id,
                     'numero_vente' => $vente->numero_vente,
                     'redirect' => route('ventes.show', $vente)
@@ -271,7 +272,7 @@ class VenteController extends Controller
             }
 
             return redirect()->route('ventes.show', $vente)
-                ->with('success', "Vente {$vente->numero_vente} crÃ©Ã©e en brouillon. Validez-la pour finaliser.");
+                ->with('success', "Vente {$vente->numero_vente} créer en brouillon. Validez-la pour finaliser.");
         } catch (\Exception $e) {
             DB::rollBack();
 
@@ -294,7 +295,7 @@ class VenteController extends Controller
     }
 
     /**
-     * Afficher les dÃ©tails d'une vente
+     * Afficher les details d'une vente
      */
     public function show(Vente $vente)
     {
@@ -314,12 +315,12 @@ class VenteController extends Controller
         }
 
         if (!$vente->peutEtreValidee()) {
-            return back()->with('error', 'Cette vente ne peut pas Ãªtre validÃ©e.');
+            return back()->with('error', 'Cette vente ne peut pas être valider.');
         }
 
         if ($vente->valider(Auth::id())) {
             return redirect()->route('ventes.show', $vente)
-                ->with('success', "Vente {$vente->numero_vente} validÃ©e avec succÃ¨s ! Les stocks ont Ã©tÃ© mis Ã  jour.");
+                ->with('success', "Vente {$vente->numero_vente} validé avec succés ! Les stocks ont été mis à  jour.");
         }
 
         return back()->with('error', 'Erreur lors de la validation de la vente.');
@@ -340,21 +341,21 @@ class VenteController extends Controller
         ]);
 
         if (!$vente->peutEtreAnnulee()) {
-            return back()->with('error', 'Cette vente ne peut pas Ãªtre annulÃ©e.');
+            return back()->with('error', 'Cette vente ne peut pas être annuler.');
         }
 
         DB::beginTransaction();
         try {
-            // Annuler (pas de restauration de stock car jamais retirÃ© si brouillon)
+            // Annuler (pas de restauration de stock car jamais retirer si brouillon)
             $vente->update([
                 'statut' => 'annulee',
-                'notes' => ($vente->notes ? $vente->notes . "\n" : '') . "AnnulÃ©e: " . $validated['motif']
+                'notes' => ($vente->notes ? $vente->notes . "\n" : '') . "Annuler: " . $validated['motif']
             ]);
 
             DB::commit();
 
             return redirect()->route('ventes.index')
-                ->with('success', 'Vente annulÃ©e avec succÃ¨s.');
+                ->with('success', 'Vente annuler avec succés.');
         } catch (\Exception $e) {
             DB::rollBack();
             return back()->with('error', $e->getMessage());
